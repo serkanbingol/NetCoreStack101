@@ -5,35 +5,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetCoreStack101.Domain.Managers;
 using NetCoreStack.Data.Interfaces;
+using NetCoreStack101.WebUI.Extensions;
+using NetCoreStack101.SharedLibrary.ApiContracts;
+using NetCoreStack.Contracts;
+using NetCoreStack101.SharedLibrary.ViewModels;
 
 namespace NetCoreStack101.WebUI.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController : ClientBaseController
     {
 
-        private readonly ISqlUnitOfWork _unitOfWork;
+        private readonly IStudentApi _studentApi;
 
-        public StudentController (ISqlUnitOfWork unitOfWork):base()
+        public StudentController (IStudentApi studentApi)
 	{
-            _unitOfWork = unitOfWork;
+            _studentApi = studentApi;
 	}
         public IActionResult Index()
         {
-
-            StudentManager manager=new StudentManager(_unitOfWork);
+             
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Insert()
+       public async Task<IActionResult> GetStudents(CollectionRequest request)
         {
-            return View();
+            CollectionResult<StudentViewModel> collection =await _studentApi.GetAllStudentViewModelAsync(request);
+            return Json(collection);
         }
 
-        [HttpPost]
-        public IActionResult Update()
-        {
-            return View();
-        }
+      
     }
 }

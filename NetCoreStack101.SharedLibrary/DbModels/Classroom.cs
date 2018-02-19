@@ -9,7 +9,7 @@ namespace NetCoreStack101.SharedLibrary.DbModels
     {
         public string ClassroomName { get; set; }
         public int StudentCount { get; set; }
-        public int TeacherId { get; set; }
-        public Teacher TeacherOfClassroom { get; set; }
+        //public int TeacherId { get; set; }
+        //public Teacher TeacherOfClassroom { get; set; }
     }
 }

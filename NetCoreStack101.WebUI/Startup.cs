@@ -6,7 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreStack.Data;
 using NetCoreStack.Mvc;
+using NetCoreStack101.Domain.Contexts;
+using NetCoreStack101.Domain.Managers;
+using NetCoreStack101.SharedLibrary.ApiContracts;
 
 namespace NetCoreStack101.WebUI
 {
@@ -22,8 +26,15 @@ namespace NetCoreStack101.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.AddMemoryCache();
             services.AddMvc();
             services.AddNetCoreStackMvc();
+            services.AddNetCoreStackSqlDb<NetCoreStack101Context>(Configuration);
+            services.AddScoped<IStudentApi, StudentManager>();
+            services.AddScoped<ITeacherApi, TeacherManager>();
+            services.AddScoped<IClassroomApi, ClassroomManager>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

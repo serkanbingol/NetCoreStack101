@@ -2,6 +2,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{ 
+    StudentViewModel viewModel = null;
+}
 @{
 
         // mvvmFactory için DOM elementlerinin kontrolü Model üzerinden configure edilir
@@ -25,4 +28,76 @@
 
 
 <h2>Index</h2>
+
+<div id="@mvvmFactory.ContainerId" class="px-content">
+    <div class="page-header p-y-4">
+        <div class="box m-a-0 bg-transparent">
+            <h1 class="box-cell col-md-7 col-lg-8 col-xl-9 font-weight-bold"><i class="page-header-icon ion-stats-bars"></i>KULLANICILAR</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">Kurum Bilgisi</div>
+                </div>
+                <form id="@mvvmFactory.FormId" class="panel-body">
+               
+                    <fieldset class="form-group">
+                        <label>Kimlik No</label>
+                        @mvvmFactory.TextBoxFor(x => x.Name).HtmlAttributes(new { @class = "form-control" })
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Ad</label>
+                        @mvvmFactory.TextBoxFor(x => x.Surname).HtmlAttributes(new { @class = "form-control" })
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Soyad</label>
+                        @mvvmFactory.TextBoxFor(x => x.Email).HtmlAttributes(new { @class = "form-control" })
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Eposta</label>
+                        @mvvmFactory.DatePickerFor(x => x.DateOfBirth).HtmlAttributes(new { @class = "form-control" })
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Telefon</label>
+                        @mvvmFactory.TextBoxFor(x => x.ClassroomName).HtmlAttributes(new { @class = "form-control" })
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <div class="pull-right">
+                            @mvvmFactory.ResetButton().IconClass("fa fa-plus").HtmlAttributes(new { @class = "btn btn-default" })
+                            @mvvmFactory.SubmitButton().IconClass("fa fa-save").HtmlAttributes(new { @class = "btn btn-primary" })
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            @{
+                var gridComponent = Html.Efe().Grid<StudentViewModel>()
+                    .Name(mvvmFactory.ViewConfigurations.GridName)
+                    .DataSource(source => source.Ajax().Read("GetStudents", "StudentViewModel"))
+                    .Events(events => events.Init("gridInitHandler").CreatedRow("rowCreatedHandler"))
+                    .PageLength(PageLengths.Ten)
+                    .BindableColumns(columns =>
+                    {
+                        columns.Bind(x => x.Id);
+                        columns.Bind(x => x.Name);
+                        columns.Bind(x => x.Surname);
+                        columns.Bind(x => x.DateOfBirth);
+                        columns.TemplateColumn("Select", "btnGridSelectRow");
+                    });
+
+                gridComponent.FilterPanel("filterModal", "Filtre Uygula");
+                gridComponent.Render();
+            }
+        </div>
+    </div>
+</div>
+<script>
+      var viewModel = {};
+        domready(function () {
+            viewModel = @(mvvmFactory.Build())
+        });
+</script>
 

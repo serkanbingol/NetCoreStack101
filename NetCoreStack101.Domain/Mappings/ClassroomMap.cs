@@ -12,7 +12,7 @@ namespace NetCoreStack101.Domain.Mappings
         public void Configure(EntityTypeBuilder<Classroom> builder)
         {
             builder.Property(x => x.Id).IsRequired();
-            builder.HasOne(x => x.TeacherOfClassroom).WithOne(x => x.ClassOfTeacher);
+      
         }
     }
 }

@@ -13,6 +13,7 @@ namespace NetCoreStack101.Domain.Mappings
         {
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Email).IsRequired();
+            //builder.HasOne(x => x.ClassOfTeacher).WithOne(x => x.TeacherOfClassroom).HasForeignKey<Classroom>(x => x.TeacherId);
         }
     }
 }

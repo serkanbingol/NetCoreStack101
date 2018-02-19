@@ -12,8 +12,8 @@ namespace NetCoreStack101.SharedLibrary.DbModels
         public string Email { get; set; }
         public int Age { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public int ClassroomId { get; set; }
-        public Classroom ClassOfTeacher { get; set; }
+        //public int ClassroomId { get; set; }
+        //public Classroom ClassOfTeacher { get; set; }
 
     }
 }

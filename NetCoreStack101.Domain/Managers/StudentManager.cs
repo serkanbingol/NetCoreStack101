@@ -1,6 +1,7 @@
 ﻿using NetCoreStack.Contracts;
 using NetCoreStack.Data.Interfaces;
 using NetCoreStack.Mvc.Extensions;
+using NetCoreStack101.SharedLibrary.ApiContracts;
 using NetCoreStack101.SharedLibrary.DbModels;
 using NetCoreStack101.SharedLibrary.ViewModels;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace NetCoreStack101.Domain.Managers
 {
-    public class StudentManager
+    public class StudentManager:IStudentApi
     {
 
         private readonly ISqlUnitOfWork _unitOfWork;
@@ -30,8 +31,8 @@ namespace NetCoreStack101.Domain.Managers
                 Surname = x.Surname,
                 Age = x.Age,
                 DateOfBirth=x.DateOfBirth,
-                ClassroomId = x.ClassroomId,
-                ClassroomName =x.ClassOfStudent.ClassroomName,
+                //ClassroomId = x.ClassroomId,
+                //ClassroomName =x.ClassOfStudent.ClassroomName,
       
 
             });
@@ -59,7 +60,7 @@ namespace NetCoreStack101.Domain.Managers
                     Email = viewModel.Email,
                     Age = viewModel.Age,
                     DateOfBirth = viewModel.DateOfBirth,
-                    ClassroomId = viewModel.ClassroomId,
+                    //ClassroomId = viewModel.ClassroomId,
                    // ClassOfStudent = classroomRepository.Select(x => x.Id == viewModel.ClassroomId).FirstOrDefault(),
                     ObjectState = ObjectState.Added
 

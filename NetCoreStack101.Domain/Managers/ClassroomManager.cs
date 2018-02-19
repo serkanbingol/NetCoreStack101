@@ -27,7 +27,7 @@ namespace NetCoreStack101.Domain.Managers
             {
                 Id = x.Id,
                 ClassroomName = x.ClassroomName,
-                TeacherName = x.TeacherOfClassroom.TeacherName,
+                //TeacherName = x.TeacherOfClassroom.TeacherName,
                 StudentCount = x.StudentCount
             });
             return query.ToCollectionResult(request);
@@ -49,7 +49,7 @@ namespace NetCoreStack101.Domain.Managers
                 var model = new Classroom
                 {
                     ClassroomName = viewModel.ClassroomName,
-                    TeacherId = viewModel.TeacherId,
+                    //TeacherId = viewModel.TeacherId,
                     ObjectState = ObjectState.Added
 
                 };
