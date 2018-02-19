@@ -16,7 +16,11 @@ namespace NetCoreStack101.SharedLibrary.ViewModels
         [Display(Name = "Öğrenci Soyad")]
         public string Surname { get; set; }
 
-   
+        [Required]
+        [Display(Name = "E-Posta")]
+        public string Email { get; set; }
+
+
         public int Age { get; set; }
 
        

@@ -14,4 +14,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetCoreStack101.Domain\NetCoreStack101.Domain.csproj" />
+    <ProjectReference Include="..\NetCoreStack101.SharedLibrary\NetCoreStack101.SharedLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

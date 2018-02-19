@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+        // mvvmFactory için DOM elementlerinin kontrolü Model üzerinden configure edilir
+        var mvvmFactory = Html.EfeMvvm<StudentViewModel>(new ViewConfigurations
+        {
+
+            // Oluşturulan HTML içindeki Container DOM elementine Id ataması yapar
+            ContainerId = "studentValidatorContainer",
+            // Oluşturulan HTML içindeki Form DOM elementine Id ataması yapar
+            FormId = "studentValidatorForm",
+            // Oluşturulan Form Dom elementinin POST verb URL atamasını yapar
+            ApiUrlRoot = "/Student/Index",
+            // Oluşturulan HTML içindeki Grid DOM elementine Id ataması yapar
+            GridName = "studentGrid",
+            //
+            UseFormData = true,
+        });
+
+    }
+        
+
+
+<h2>Index</h2>
+
