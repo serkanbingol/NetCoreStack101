@@ -3,18 +3,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    StudentViewModel viewModel = null;
+    TeacherViewModel viewModel = null;
 }
 @{
 
 
-    var mvvmFactory = Html.EfeMvvm<StudentViewModel>(new ViewConfigurations
+    var mvvmFactory = Html.EfeMvvm<TeacherViewModel>(new ViewConfigurations
     {
 
-        ContainerId = "studentContainer",
-        FormId = "studentForm",
-        ApiUrlRoot = "/Student/SaveStudent",
-        GridName = "studentGrid",
+        ContainerId = "teacherContainer",
+        FormId = "teacherForm",
+        ApiUrlRoot = "/Teacher/SaveTeacher",
+        GridName = "teacherGrid",
 
     });
 
@@ -27,31 +27,31 @@
 <div id="@mvvmFactory.ContainerId" class="px-content">
     <div class="page-header p-y-4">
         <div class="box m-a-0 bg-transparent">
-            <h1 class="box-cell col-md-7 col-lg-8 col-xl-9 font-weight-bold"><i class="page-header-icon ion-stats-bars"></i>STUDENTS</h1>
+            <h1 class="box-cell col-md-7 col-lg-8 col-xl-9 font-weight-bold"><i class="page-header-icon ion-stats-bars"></i>TEACHERS</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <div class="panel-title">Student Information</div>
+                    <div class="panel-title">Teacher Information</div>
                 </div>
                 <form id="@mvvmFactory.FormId" class="panel-body">
 
                     <fieldset class="form-group">
-                        <label>Student Name :</label>
-                        @mvvmFactory.TextBoxFor(x => x.Name).HtmlAttributes(new { @class = "form-control" })
+                        <label>Teacher Name :</label>
+                        @mvvmFactory.TextBoxFor(x => x.TeacherName).HtmlAttributes(new { @class = "form-control" })
                     </fieldset>
                     <fieldset class="form-group">
-                        <label>Student Surname:</label>
-                        @mvvmFactory.TextBoxFor(x => x.Surname).HtmlAttributes(new { @class = "form-control" })
+                        <label>teacher Surname :</label>
+                        @mvvmFactory.TextBoxFor(x => x.TeacherSurname).HtmlAttributes(new { @class = "form-control" })
                     </fieldset>
                     <fieldset class="form-group">
-                        <label>Student Email :</label>
+                        <label>Teacher Email :</label>
                         @mvvmFactory.TextBoxFor(x => x.Email).HtmlAttributes(new { @class = "form-control" })
                     </fieldset>
                     <fieldset class="form-group">
-                        <label>Student Birth Date :</label>
+                        <label>Teacher Birth Date :</label>
                         @mvvmFactory.DatePickerFor(x => x.DateOfBirth).HtmlAttributes(new { @class = "form-control" })
                     </fieldset>
                     <fieldset class="form-group">
@@ -65,17 +65,18 @@
         </div>
         <div class="col-lg-12">
             @{
-                var gridComponent = Html.Efe().Grid<StudentViewModel>()
+                var gridComponent = Html.Efe().Grid<TeacherViewModel>()
                     .Name(mvvmFactory.ViewConfigurations.GridName)
-                    .DataSource(source => source.Ajax().Read("GetStudents", "Student"))
+                    .DataSource(source => source.Ajax().Read("GetTeachers", "Teacher"))
                     .PageLength(PageLengths.Ten)
                     .BindableColumns(columns =>
                     {
                         columns.Bind(x => x.Id);
-                        columns.Bind(x => x.Name);
-                        columns.Bind(x => x.Surname);
+                        columns.Bind(x => x.TeacherName);
+                        columns.Bind(x => x.TeacherSurname);
+                        columns.Bind(x => x.Age);
                         columns.Bind(x => x.Email);
-                        columns.Bind(x => x.DateOfBirth);
+                        //columns.Bind(x => x.DateOfBirth);
                         columns.TemplateColumn("Select", "btnGridSelectRow");
                     });
 

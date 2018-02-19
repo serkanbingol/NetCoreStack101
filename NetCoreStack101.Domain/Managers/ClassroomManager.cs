@@ -27,17 +27,26 @@ namespace NetCoreStack101.Domain.Managers
             {
                 Id = x.Id,
                 ClassroomName = x.ClassroomName,
-                //TeacherName = x.TeacherOfClassroom.TeacherName,
                 StudentCount = x.StudentCount
             });
             return query.ToCollectionResult(request);
 
         }
 
-        public async Task<ClassroomViewModel> GetClassroomViewModelAsync(int studentId)
+        public async Task<ClassroomViewModel> GetClassroomViewModelAsync(int classroomId)
         {
             await Task.CompletedTask;
-            throw new NotImplementedException();
+            var classroomRepository = _unitOfWork.Repository<Classroom>();
+            var viewModel = classroomRepository
+                .Where(x => x.Id == classroomId)
+                .Select(x => new ClassroomViewModel
+                {
+                    Id = x.Id,
+                    ClassroomName = x.ClassroomName,
+                    StudentCount = x.StudentCount
+                }
+            );
+            return (ClassroomViewModel)viewModel;
         }
 
         public async Task SaveClassroomAsync(ClassroomViewModel viewModel)
@@ -49,7 +58,6 @@ namespace NetCoreStack101.Domain.Managers
                 var model = new Classroom
                 {
                     ClassroomName = viewModel.ClassroomName,
-                    //TeacherId = viewModel.TeacherId,
                     ObjectState = ObjectState.Added
 
                 };

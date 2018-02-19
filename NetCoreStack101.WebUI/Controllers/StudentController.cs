@@ -29,10 +29,17 @@ namespace NetCoreStack101.WebUI.Controllers
 
        public async Task<IActionResult> GetStudents(CollectionRequest request)
         {
-            CollectionResult<StudentViewModel> collection =await _studentApi.GetAllStudentViewModelAsync(request);
+            var collection =await _studentApi.GetAllStudentViewModelAsync(request);
             return Json(collection);
         }
 
-      
+        [HttpPost]
+        public async Task<IActionResult> SaveStudent([FromBody]StudentViewModel viewModel)
+        {
+            await _studentApi.SaveStudentAsync(viewModel);
+            return CreateSuccessWebResult(viewModel.IsNew ? "Student Record Created." : "Student Record Updated.");
+        }
+
+
     }
 }

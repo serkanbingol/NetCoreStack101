@@ -30,9 +30,8 @@ namespace NetCoreStack101.Domain.Managers
                 Name = x.Name,
                 Surname = x.Surname,
                 Age = x.Age,
+                Email=x.Email,
                 DateOfBirth=x.DateOfBirth,
-                //ClassroomId = x.ClassroomId,
-                //ClassroomName =x.ClassOfStudent.ClassroomName,
       
 
             });
@@ -43,7 +42,20 @@ namespace NetCoreStack101.Domain.Managers
         public async Task<StudentViewModel> GetStudentViewModelAsync(int studentId)
         {
             await Task.CompletedTask;
-            throw new NotImplementedException();
+            var studentRepository = _unitOfWork.Repository<Student>();     
+            var viewModel = studentRepository
+                .Where(x=>x.Id==studentId)
+                .Select(x => new StudentViewModel {
+
+                    Id = x.Id,
+                    Name = x.Name,
+                    Surname = x.Surname,
+                    Age = x.Age,
+                    Email = x.Email,
+                    DateOfBirth = x.DateOfBirth,
+                }
+            );
+            return (StudentViewModel)viewModel;
         }
 
         public async Task SaveStudentAsync(StudentViewModel viewModel)
@@ -58,10 +70,8 @@ namespace NetCoreStack101.Domain.Managers
                     Name = viewModel.Name,
                     Surname = viewModel.Surname,
                     Email = viewModel.Email,
-                    Age = viewModel.Age,
-                    DateOfBirth = viewModel.DateOfBirth,
-                    //ClassroomId = viewModel.ClassroomId,
-                   // ClassOfStudent = classroomRepository.Select(x => x.Id == viewModel.ClassroomId).FirstOrDefault(),
+                    Age = DateTime.Now.Year - viewModel.DateOfBirth.Year,
+                    DateOfBirth = viewModel.DateOfBirth,                
                     ObjectState = ObjectState.Added
 
                 };
@@ -69,12 +79,15 @@ namespace NetCoreStack101.Domain.Managers
             }
             else
             {
-                var model = classroomRepository.Single(x => x.Id == viewModel.Id);
-
-                model.ClassroomName = viewModel.ClassroomName;
+                var model = studentRepository.Single(x => x.Id == viewModel.Id);
+                model.Name = viewModel.Name;
+                model.Surname = viewModel.Surname;
+                model.Email = viewModel.Email;
+                model.Age = DateTime.Now.Year - viewModel.DateOfBirth.Year;
+                model.DateOfBirth = viewModel.DateOfBirth;
                 model.ObjectState = ObjectState.Modified;
 
-                classroomRepository.SaveAllChanges(model);
+                studentRepository.SaveAllChanges(model);
             }
 
 

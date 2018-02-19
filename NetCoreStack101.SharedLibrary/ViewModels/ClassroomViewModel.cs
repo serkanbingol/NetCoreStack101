@@ -9,20 +9,20 @@ namespace NetCoreStack101.SharedLibrary.ViewModels
    public  class ClassroomViewModel: CollectionModel
     {
         [Required]
-        [Display(Name = "Sınıf Adı")]
+        [Display(Name = "Classroom Name")]
         public string ClassroomName { get; set; }
 
         [Required]
-        [Display(Name = "Öğrenci Sayısı")]
+        [Display(Name = "Classroom Student Count")]
         public int StudentCount { get; set; }
 
-        [Required]
-        public int TeacherId { get; set; }
+        //[Required]
+        //public int TeacherId { get; set; }
 
-        [Required]
+        //[Required]
 
-        [Display(Name = "Öğretmen Tam Ad")]
-        public string TeacherName { get; set; }
+        //[Display(Name = "Classroom Teacher Fullname")]
+        //public string TeacherName { get; set; }
 
     }
 }

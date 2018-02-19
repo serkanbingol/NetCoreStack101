@@ -3,18 +3,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{
-    StudentViewModel viewModel = null;
+    ClassroomViewModel viewModel = null;
 }
 @{
 
-
-    var mvvmFactory = Html.EfeMvvm<StudentViewModel>(new ViewConfigurations
+    var mvvmFactory = Html.EfeMvvm<ClassroomViewModel>(new ViewConfigurations
     {
-
-        ContainerId = "studentContainer",
-        FormId = "studentForm",
-        ApiUrlRoot = "/Student/SaveStudent",
-        GridName = "studentGrid",
+        ContainerId = "classroomContainer",
+        FormId = "classroomForm",
+        ApiUrlRoot = "/Clasroom/SaveClassroom",
+        GridName = "classroomGrid",
 
     });
 
@@ -27,32 +25,24 @@
 <div id="@mvvmFactory.ContainerId" class="px-content">
     <div class="page-header p-y-4">
         <div class="box m-a-0 bg-transparent">
-            <h1 class="box-cell col-md-7 col-lg-8 col-xl-9 font-weight-bold"><i class="page-header-icon ion-stats-bars"></i>STUDENTS</h1>
+            <h1 class="box-cell col-md-7 col-lg-8 col-xl-9 font-weight-bold"><i class="page-header-icon ion-stats-bars"></i>CLASSROOMS</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <div class="panel-title">Student Information</div>
+                    <div class="panel-title">Classroom Information</div>
                 </div>
                 <form id="@mvvmFactory.FormId" class="panel-body">
 
                     <fieldset class="form-group">
-                        <label>Student Name :</label>
-                        @mvvmFactory.TextBoxFor(x => x.Name).HtmlAttributes(new { @class = "form-control" })
+                        <label>Classroom Name :</label>
+                        @mvvmFactory.TextBoxFor(x => x.ClassroomName).HtmlAttributes(new { @class = "form-control" })
                     </fieldset>
                     <fieldset class="form-group">
-                        <label>Student Surname:</label>
-                        @mvvmFactory.TextBoxFor(x => x.Surname).HtmlAttributes(new { @class = "form-control" })
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>Student Email :</label>
-                        @mvvmFactory.TextBoxFor(x => x.Email).HtmlAttributes(new { @class = "form-control" })
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <label>Student Birth Date :</label>
-                        @mvvmFactory.DatePickerFor(x => x.DateOfBirth).HtmlAttributes(new { @class = "form-control" })
+                        <label>Classroom Student Count :</label>
+                        @mvvmFactory.TextBoxFor(x => x.StudentCount).HtmlAttributes(new { @class = "form-control" })
                     </fieldset>
                     <fieldset class="form-group">
                         <div class="pull-right">
@@ -65,17 +55,15 @@
         </div>
         <div class="col-lg-12">
             @{
-                var gridComponent = Html.Efe().Grid<StudentViewModel>()
+                var gridComponent = Html.Efe().Grid<ClassroomViewModel>()
                     .Name(mvvmFactory.ViewConfigurations.GridName)
-                    .DataSource(source => source.Ajax().Read("GetStudents", "Student"))
+                    .DataSource(source => source.Ajax().Read("GetClassrooms", "Classroom"))
                     .PageLength(PageLengths.Ten)
                     .BindableColumns(columns =>
                     {
                         columns.Bind(x => x.Id);
-                        columns.Bind(x => x.Name);
-                        columns.Bind(x => x.Surname);
-                        columns.Bind(x => x.Email);
-                        columns.Bind(x => x.DateOfBirth);
+                        columns.Bind(x => x.ClassroomName);
+                        columns.Bind(x => x.StudentCount);
                         columns.TemplateColumn("Select", "btnGridSelectRow");
                     });
 

@@ -10,7 +10,7 @@ namespace NetCoreStack101.SharedLibrary.ApiContracts
     public interface IClassroomApi:IApiContract
     {
 
-        Task<ClassroomViewModel> GetClassroomViewModelAsync(int studentId);
+        Task<ClassroomViewModel> GetClassroomViewModelAsync(int classroomId);
         Task<CollectionResult<ClassroomViewModel>> GetAllClassroomViewModelAsync(CollectionRequest request);
         Task SaveClassroomAsync(ClassroomViewModel viewModel);
     }
